@@ -1,3 +1,5 @@
+"""Renault Intelligence Agent - Path Configuration Module"""
+
 from pathlib import Path
 
 

@@ -1,25 +1,33 @@
+"""Renault Intelligence Agent - Document Retrieval Tool Module
+This module provides a tool to retrieve relevant documents from a vector store
+using a question as input. It utilizes the Chroma vector store and HuggingFace embeddings for
+document retrieval."""
+
 import logging
 
 logger = logging.getLogger(__name__)
 
 import chromadb
-from langchain_chroma import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_core.vectorstores import VectorStoreRetriever
 from langchain.tools import StructuredTool
+from langchain_chroma import Chroma
+from langchain_core.vectorstores import VectorStoreRetriever
+from langchain_huggingface import HuggingFaceEmbeddings
 from pydantic import BaseModel, Field
 
-from app.config import RetrievalConfig, PathConfig, EmbeddingConfig
-from app.utils import error_handler
+from config import EmbeddingConfig, PathConfig, RetrievalConfig
+from utils import error_handler
 
 
 class RetrieverArgs(BaseModel):
+    """Arguments for retrieving documents."""
+
     question: str = Field(
         description="The original user question to retrieve relevant documents for"
     )
 
 
 def get_retriever() -> VectorStoreRetriever:
+    """Initialize and return a retriever for document retrieval."""
     embeddings = HuggingFaceEmbeddings(model_name=EmbeddingConfig.model_name)
     persistent_client = chromadb.PersistentClient(path=PathConfig.CHROMA_DB_DIR)
     db = Chroma(
@@ -33,7 +41,8 @@ def get_retriever() -> VectorStoreRetriever:
     return retriever
 
 
-def retrieve(question: str):
+def retrieve(question: str) -> str:
+    """Retrieve documents relevant to the provided question."""
     logger.info(f"Retrieving documents")
     try:
         retriever = get_retriever()

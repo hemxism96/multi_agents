@@ -1,3 +1,5 @@
+"""Renault Intelligence Agent - Utility Functions"""
+
 import logging
 
 from schema import ErrorResponse

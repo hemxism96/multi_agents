@@ -1,3 +1,5 @@
+"""Renault Intelligence Agent - API Tool for Stock History Retrieval"""
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -7,10 +9,13 @@ import json
 import yfinance as yf
 from langchain.tools import StructuredTool
 from pydantic import BaseModel, Field
-from app.utils import error_handler
+
+from utils import error_handler
 
 
 class StockHistoryArgs(BaseModel):
+    """Arguments for retrieving stock history."""
+
     ticker: str = Field(
         description="Ticker symbol of the stock in CAC40 (e.g., 'RNO.PA' for Renault and '^FCHI' for CAC40).",
         enum=["RNO.PA", "^FCHI"],
@@ -21,7 +26,7 @@ class StockHistoryArgs(BaseModel):
     end: str = Field(description="End date for the stock history in YYYY-MM-DD format.")
 
 
-def get_stock_history(ticker: str, start: str, end: str):
+def get_stock_history(ticker: str, start: str, end: str) -> str:
     """
     Get the historical stock prices of a company on Euronext Paris between two dates.
     Args:
@@ -47,7 +52,9 @@ def get_stock_history(ticker: str, start: str, end: str):
                     "ticker": ticker,
                 }
             )
-        return json.dumps(result)
+        return "\n".join(
+            [f"{ticker} - {item['date']}: Open={item['open']}, Close={item['close']}" for item in result]
+        )
     except Exception as e:
         error_handler(e)
         return "An error occurred while fetching stock history."

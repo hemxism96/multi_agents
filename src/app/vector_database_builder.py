@@ -1,17 +1,20 @@
+"""
+This module builds a vector database from YouTube transcripts and PDF documents.
+It handles loading, chunking, and embedding of documents to create a searchable vector store.
+"""
+
 import os
-from typing import Optional, List
+from typing import List, Optional
 
+from config import EmbeddingConfig, PathConfig, RetrievalConfig
+from config.youtube_urls import urls
+from docling.chunking import HybridChunker
 from langchain_chroma import Chroma
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
-
 from langchain_community.document_loaders import YoutubeLoader
 from langchain_core.documents import Document
 from langchain_docling import DoclingLoader
-from docling.chunking import HybridChunker
-
-from config.youtube_urls import urls
-from config import EmbeddingConfig, RetrievalConfig, PathConfig
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from utils import error_handler
 
 
@@ -150,7 +153,6 @@ class VectorDatabaseBuilder:
                 for file_name in os.listdir(document_path)
                 if file_name.endswith(".pdf")
             ]
-            file_paths = ["https://arxiv.org/pdf/2408.09869"]
 
             loader = DoclingLoader(
                 file_path=file_paths,

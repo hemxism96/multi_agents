@@ -1,24 +1,21 @@
+"""Renault Intelligence Agent - Main Execution Module"""
+
 import logging
 from functools import partial
 from typing import List
 
+from config import LLMConfig
 from langchain.tools import StructuredTool
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.runnables import Runnable
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langgraph.graph import START, END, StateGraph
+from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.prebuilt import ToolNode, tools_condition
-
-from config import LLMConfig
 from prompt import REWRITER_PROMPT, SYSTEM_PROMPT
 from schema import State
-from tools import (
-    graph_creator_tool,
-    retriever_tool,
-    stock_price_api_reader,
-    current_date_tool,
-)
+from tools import (current_date_tool, graph_creator_tool, retriever_tool,
+                   stock_price_api_reader)
 from utils import error_handler
 
 logging.basicConfig(
@@ -182,4 +179,4 @@ if __name__ == "__main__":
         "DPEF indicators.",
         "Summarize the progress of Renault's plan since 2021.",
     ]
-    run(question_list[4])
+    run(question_list[6])

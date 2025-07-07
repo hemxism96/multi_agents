@@ -1,14 +1,23 @@
-# Single Agent System for Corporate Research Analysis
+# Renault Intelligence Agent
 
-A single agent system built with LangGraph that analyzes Renault Group corporate data, finance data flow, creates visualizations, and provides intelligent insights using various tools and data sources.
+An advanced LLM-powered agent system designed to analyze and respond to queries using structured and unstructured multi-modal data from various sources. Built with LangGraph, this intelligent agent specializes in comprehensive analysis of Renault Group's corporate ecosystem, combining diverse data formats from websites, APIs, and documents to provide strategic insights.
+
+The agent's knowledge base encompasses:
+- **Renault's Renaulution Strategy Plan**: Deep analysis of the transformation roadmap
+- **CEO Luca di Meo's Vision**: Insights from executive communications and strategic talks
+- **Real-time Stock Performance**: Current year stock price analysis and market trends
+- **CAC40 Market Benchmarking**: Comparative analysis against French market performance
+
+This system seamlessly integrates multi-modal data sources to deliver contextual, data-driven responses that support strategic decision-making and corporate research.
 
 ## Features
 
+- **Multi-Modal Data Integration**: Processes text, structured data, and API responses from diverse sources
 - **Query Rewriting**: Automatically rewrites user queries to be more specific and effective for analysis
 - **Document Retrieval**: Searches through Renault Group documents and reports
 - **Stock Price Analysis**: Fetches real-time and historical stock price data using Yahoo Finance API
 - **Graph Creation**: Creates bar charts and line graphs from extracted data
-- **Multi-tool Integration**: Seamlessly combines multiple data sources and analysis tools
+- **Strategic Intelligence**: Specialized analysis of Renaulution plan and executive communications
 
 ## Architecture
 
@@ -47,7 +56,7 @@ The system uses a graph-based workflow with the following components:
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd corporate_analysis
+cd renault_intelligence_agent
 ```
 
 2. Install dependencies:
@@ -63,15 +72,23 @@ export GOOGLE_API_KEY="your-api-key-here"
 
 ## Usage
 
+### Building the Vector Database
+
+Before running the system, you need to build the vector database:
+
+```bash
+python src/app/vector_database_builder.py
+```
+
 ### Running the System
 
 w/o interface
-```
+```bash
 python src/app/main.py
 ```
 
 w/ interface
-```
+```bash
 python src/app/gradio_app.py
 ```
 
@@ -116,17 +133,28 @@ The graph creator supports:
 ## Project Structure
 
 ```
-multi_agents/
+renault_intelligence_agent/
 ├── src/app/
-│   ├── main.py              # Main application logic
-│   ├── tools/
-│   │   └── graph_creator.py # Graph creation functionality
-│   ├── config.py            # Configuration settings
-│   ├── prompt.py            # System prompts
-│   ├── schema.py            # Data schemas
-│   └── utils.py             # Utility functions
-├── pyproject.toml           # Project dependencies
-└── README.md               # This file
+│   ├── __init__.py   
+│   ├── main.py                    # Main application logic
+│   ├── gradio_app.py              # Gradio web interface
+│   ├── vector_database_builder.py # Vector database creation
+│   ├── config/
+│   │   ├── __init__.py           
+│   │   ├── models.py         
+│   │   ├── paths.py    
+│   │   └── youtube_urls.py    
+│   ├── prompt.py                  # System prompts
+│   ├── schema.py                  # Data schemas
+│   ├── utils.py                   # Utility functions
+│   └── tools/
+│       ├── __init__.py            # Tools module initialization
+│       ├── api_tool.py            # Stock price API tool
+│       ├── graph_creator.py       # Graph creation functionality
+│       ├── retrieve_tool.py       # Document retrieval tool
+│       └── data_tool.py   # Current date utility tool
+├── pyproject.toml                 # Project dependencies
+└── README.md                     
 ```
 
 ## Dependencies
@@ -164,15 +192,3 @@ The system includes comprehensive error handling:
 ## License
 
 This project is licensed under the MIT License.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## Support
-
-For questions or issues, please open an issue in the repository.

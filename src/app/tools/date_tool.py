@@ -1,16 +1,22 @@
+"""Renault Intelligence Agent - Date Tool Module
+This module provides a tool to retrieve the current date
+in a specified format, useful for time-based queries and analyses."""
+
 import logging
 
 logger = logging.getLogger(__name__)
 
-import json
-from datetime import datetime, date
+from datetime import date, datetime
 
 from langchain.tools import StructuredTool
 from pydantic import BaseModel, Field
-from app.utils import error_handler
+
+from utils import error_handler
 
 
 class DateArgs(BaseModel):
+    """Arguments for retrieving the current date."""
+
     format: str = Field(
         default="%Y-%m-%d", description="Date format to return. Default is YYYY-MM-DD."
     )

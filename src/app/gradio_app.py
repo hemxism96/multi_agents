@@ -1,14 +1,18 @@
-import gradio as gr
+"""Renault Intelligence Agent - Gradio Interface Application"""
 
+import gradio as gr
 from main import run
 
+
 def generate_response(question: str) -> str:
+    """Generates a response to the provided question using the main run function."""
     response = run(question)
     return response
 
 
 with gr.Blocks() as app:
-    gr.Markdown("Renault Group Corporate Analyst")
+    """Gradio application for the Renault Intelligence Agent."""
+    gr.Markdown("Renault Intelligence Agent")
 
     with gr.Row():
         with gr.Column():
