@@ -1,0 +1,33 @@
+# Test dependencies for Renault Intelligence Agent
+# Add these to your main requirements or install separately for testing
+
+# Core testing framework
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+
+# Additional testing utilities
+mock>=4.0.3
+coverage>=7.0.0
+unittest-xml-reporting>=3.2.0
+
+# For test data generation
+factory-boy>=3.2.0
+faker>=18.0.0
+
+# For integration testing
+requests-mock>=1.10.0
+responses>=0.23.0
+
+# For performance testing
+pytest-benchmark>=4.0.0
+
+# For test reporting
+pytest-html>=3.1.0
+pytest-json-report>=1.5.0
+
+# For parallel test execution
+pytest-xdist>=3.0.0
+
+# For test fixtures
+pytest-fixtures>=0.1.0
